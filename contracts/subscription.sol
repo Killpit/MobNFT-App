@@ -2,7 +2,7 @@
 pragma solidity 0.8.17;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/utils.Counter.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract SubscriptionModel {
@@ -32,5 +32,35 @@ contract SubscriptionModel {
         emit SubscriptionUpdate(_tokenId, newExpiration);
     }
 
-    
+    /// @notice Cancels the subscription of an NFT
+    /// @dev Throws if 'tokenId' is not a valid NFT
+    /// @param _tokenId The NFT to cancel the subscription for
+    function cancelSubscription(uint256 _tokenId) external payable {
+        delete _expirations[_tokenId];
+        emit SubscriptionUpdate(_tokenId, 0);
+    }
+
+    /// @notice Cancels the subscription of an NFT
+    /// @dev Throws if 'tokenId' is not a valid NFT
+    /// @param _tokenId The NFT to cancel the subscription for
+    function cancelSubscription(uint256 _tokenId) external payable {
+        delete _expirations[_tokenId];
+        emit SubscriptionUpdate(_tokenId, 0);
+    }
+
+    /// @notice Gets the expiration date of a subscription
+    /// @dev Throws if 'tokenId' is not a valid NFT
+    /// @param _tokenId The NFT to get the expiration date of
+    /// @return The expiration date of the subscription
+    function expiresAt(uint256 _tokenId) external view returns (uint64) {
+        return _expirations[_tokenId];
+    }
+
+    /// @notice Determines whether a subscription can be renewed
+    /// @dev Throws if 'tokenId' is not a valid NFT
+    /// @param _tokenId The NFT to get the expiration date of
+    /// @return The renewability of the subscription - true or faşse
+    function isRenewable(uint256 tokenId) public pure returns (bool) {
+        return true;
+    }
 }
