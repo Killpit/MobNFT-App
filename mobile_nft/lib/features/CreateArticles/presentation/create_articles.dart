@@ -12,6 +12,8 @@ class _CreateArticlesState extends State<CreateArticles> {
 
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    return Scaffold(
+      
+    );
   }
 }
