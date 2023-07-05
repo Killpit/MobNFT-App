@@ -22,7 +22,22 @@ class _CreateArticlesState extends State<CreateArticles> {
           style: TextStyle(fontFamily: titleFont),
         ),
       ),
-      
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: promptController,
+              minLines: 6,
+              maxLines: null,
+              decoration: InputDecoration(
+                hintText: "Enter a prompt to generate your article",
+                hintStyle: TextStyle(fontFamily: bodyFont)),
+            ),
+            
+          ]
+        )
+      )
     );
   }
 }
