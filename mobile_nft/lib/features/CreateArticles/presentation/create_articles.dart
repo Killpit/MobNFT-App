@@ -34,10 +34,22 @@ class _CreateArticlesState extends State<CreateArticles> {
                 hintText: "Enter a prompt to generate your article",
                 hintStyle: TextStyle(fontFamily: bodyFont)),
             ),
-            
-          ]
-        )
-      )
+            Container(
+              margin: const EdgeInsets.all(40),
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, "/publishArticle");
+                },
+                child: Text(
+                  "Create",
+                  style: TextStyle(fontFamily: buttonFont, fontSize: 24),
+                )),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
