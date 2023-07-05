@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_nft/utils/color.dart';
+import 'package:mobile_nft/utils/fonts.dart';
 
 class CreateArticles extends StatefulWidget {
   const CreateArticles({super.key});
@@ -13,6 +15,13 @@ class _CreateArticlesState extends State<CreateArticles> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: brandColor,
+        title: Text(
+          "Create an Article",
+          style: TextStyle(fontFamily: titleFont),
+        ),
+      ),
       
     );
   }
