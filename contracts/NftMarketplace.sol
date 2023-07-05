@@ -7,14 +7,15 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "./subscription.sol";
 import "./profile.sol";
 
-contract NftMarketplace is ERC721URIStorage {
+contract NftMarketplace is  ERC721URIStorage {
+    
 
     using Counters for Counters.Counter;
     Counters.Counter private tokenIds;
     Counters.Counter private nftsAvailableForSale;
     Counters.Counter private userIds;
 
-    constructor() ERC721("MobNFT App", "MobNFT") {
+    constructor() ERC721("NFT Magazine Subscription", "MAG") {
         tokenIds.increment();
         userIds.increment();
     }
@@ -30,8 +31,9 @@ contract NftMarketplace is ERC721URIStorage {
         string description;
         string tokenUri;
     }
+   
+    mapping(uint256 => nftStruct) private nfts;
 
-    mapping (uint256 => nftStruct) private nfts;
 
     event NftStructCreated(
         uint256 indexed tokenId,
@@ -43,6 +45,8 @@ contract NftMarketplace is ERC721URIStorage {
         string title,
         string description
     );
+
+    //nftStruct[] public nftSubscriptions;
 
     function setNft(
         uint256 _tokenId,
@@ -60,6 +64,7 @@ contract NftMarketplace is ERC721URIStorage {
         nfts[_tokenId].description = _description;
         nfts[_tokenId].tokenUri = _tokenURI;
 
+
         emit NftStructCreated(
             _tokenId,
             payable(msg.sender),
@@ -76,13 +81,13 @@ contract NftMarketplace is ERC721URIStorage {
     /// @param _tokenURI the new token URI for the magazine cover
     /// @param _title the name of the magazine cover
     /// @param _description detailed information on the magazine NFT
-    /// @return tokenId of the created NFT
+    // /// @return tokenId of the created NFT
     function createNft(
         string memory _tokenURI,
         string memory _title,
         string memory _description
-    ) public {
-
+    ) public  {
+        
         uint256 newTokenId = tokenIds.current();
         _mint(msg.sender, newTokenId);
         _setTokenURI(newTokenId, _tokenURI);
@@ -90,10 +95,10 @@ contract NftMarketplace is ERC721URIStorage {
         tokenIds.increment();
     }
 
-    /// @dev sell a magazine subscription to the public so that it's visible to the NFT marketplace
-    /// @param _tokenId the TokenID of the NFT Magazine
-    /// @param _price of the price for the magazine subscription
-    /// @return total number of available NFT subscriptions
+    /// @dev sell a magazine subscription to the public so that's visible to the nft marketplace
+    /// @param _tokenId the TokenID od the Nft Magazine
+    // /// @param _price the price for the magazine subscription
+    // /// @return total number of available nft subscriptions
     function sellSubscription(
         uint256 _tokenId, uint64 duration
     ) public payable returns (uint256) {
@@ -104,6 +109,7 @@ contract NftMarketplace is ERC721URIStorage {
         _transfer(msg.sender, address(this), _tokenId);
         nfts[_tokenId].price = msg.value / (1 ether);
         nfts[_tokenId].owner = payable(address(this));
+        //_expirations[_tokenId] = duration;
         nftsAvailableForSale.increment();
         return nftsAvailableForSale.current();
     }
@@ -112,14 +118,19 @@ contract NftMarketplace is ERC721URIStorage {
     /// @param _tokenId the Token ID of the NFT Magazine
     /// @return true
     function buySubscription(uint256 _tokenId) public payable returns (bool) {
+        // uint256 price = nfts[_tokenId].price;
+        // require(
+        //     msg.value == price,
+        //     "Please send the asking price in order to complete the purchase"
+        // );
 
         payable(nfts[_tokenId].seller).transfer(msg.value);
         nfts[_tokenId].subscribers.push(msg.sender);
         return true;
     }
 
-    /// @dev Fetch available NFTs on sale that will be displayed on the marketplace
-    /// @return nftStruct[] list of NFTs with their metadata
+    /// @dev fetch available NFTs on sale that will be displayed on the marketplace
+    /// return nftStruct[] list of nfts with their metadata
     function getSubscriptions() public view returns (nftStruct[] memory) {
         uint256 nftCount = tokenIds.current();
         nftStruct[] memory nftSubs = new nftStruct[](nftCount);
@@ -131,8 +142,8 @@ contract NftMarketplace is ERC721URIStorage {
         return nftSubs;
     }
 
-    /// @dev Fetches NFT magazines that a specific user is already subscribed to
-    /// @return nftStruct[] list of the NFTs collected by a user with their metadata
+    /// @dev fetches NFT magazines that a specific user is already subscribed to
+    /// return nftStruct[] list of the nfts collected by a user with their metadata
     function getCollectables() public view returns (nftStruct[] memory) {
         uint256 nftCount = tokenIds.current();
         nftStruct[] memory nftSubs = new nftStruct[](nftCount);
@@ -140,7 +151,7 @@ contract NftMarketplace is ERC721URIStorage {
         for (uint256 i = 1; i < nftCount; i++) {
             uint256 subscribers = nfts[i].subscribers.length;
             for (uint256 j = 0; j < subscribers; j++) {
-                if (nfts[i].subscribers[j] === msg.sender) {
+                if (nfts[i].subscribers[j] == msg.sender) {
                     nftSubs[i] = nfts[i];
                 }
             }
@@ -149,8 +160,8 @@ contract NftMarketplace is ERC721URIStorage {
         return nftSubs;
     }
 
-    /// @dev Fetches NFT magazines that a specific user has created
-    /// @return nftStruct[] list of NFTs created by a user with their metadata
+    /// @dev fetches NFT magazines that a specific user has created
+    ///@return nftStruct[] list of nfts created by a user with their metadata
     function getNfts() public view returns (nftStruct[] memory) {
         uint256 nftCount = tokenIds.current();
         nftStruct[] memory nftSubs = new nftStruct[](nftCount);
@@ -163,7 +174,7 @@ contract NftMarketplace is ERC721URIStorage {
         return nftSubs;
     }
 
-    /// @dev Fetches details of a particular NFT magazine subscription
+    /// @dev fetches details of a particular NFT magazine subscription
     /// @param _tokenId The token ID of the NFT Magazine
     /// @return nftStruct NFT data of the specific token ID
     function getIndividualNFT(
@@ -171,6 +182,7 @@ contract NftMarketplace is ERC721URIStorage {
     ) public view returns (nftStruct memory) {
         return nfts[_tokenId];
     }
+
 
     /// @dev increments number of likes for a NFT Magazine by 1
     /// @param _tokenId the Token ID of the NFT Magazine
