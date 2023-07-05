@@ -30,11 +30,39 @@ class _ArticleState extends State<Article> {
               style: TextStyle(
                 color: brandColor, fontFamily: titleFont, fontSize: 18,),
             ),
-            
-          ])
-        )
-      )
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Text(
+                  "18 June 2023",
+                  style: TextStyle(color: themeColor),
+                )),
+            ),
+            Text(
+              lorem(paragraphs: 5, words: 200),
+              style: TextStyle(height: 1.6, fontFamily: bodyFont),
+              textAlign: TextAlign.justify,
+            )
+          ]),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.of(context).push(
+            TurnPageRoute(
+              overleafColor: Colors.grey,
+              animationTransitionPoint: 0.5,
+              transitionDuration: const Duration(milliseconds: 500),
+              reverseTransitionDuration: const Duration(milliseconds: 300),
+              builder: (context) => const Article(),
+            ),
+          );
+        }, 
+        label: const Text("Next"),
+        icon: const Icon(Icons.navigate_next),
+        backgroundColor: brandColor,
+        ),
     );
   }
-
 }
