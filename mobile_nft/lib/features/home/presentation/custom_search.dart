@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_nft/features/Subscribe/domain/subscribe_arguments.dart';
+import 'package:mobile_nft/features/Subscribe/presentation/subscribe.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   List<dynamic> searchTerms = [];
@@ -53,6 +54,33 @@ class CustomSearchDelegate extends SearchDelegate {
           title: Text(result),
         );
       },
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<dynamic> matchQuery = [];
+    for (var mag in searchTerms) {
+      if (mag[6].toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(mag);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index][6];
+        List<dynamic> nft = matchQuery[index];
+        return ListTile(
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              Subscribe.routeName,
+              arguments: SubscribeArguments(nft),
+            );
+          },
+          title: Text(result),
+        );
+      }
     );
   }
 }
