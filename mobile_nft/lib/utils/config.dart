@@ -17,7 +17,7 @@ const genesisAddress = "0x0000000000000000000000000000000000000000";
 //Pinata configurations
 const pinataUrl = "https://api.pinata.cloud";
 const pinEndpoint = "/pinning/pinFileToIPFS";
-const apiKey = "f83f67660f94493c49c5";
+const apiKey = "";
 const apiSecret =
     "";
 const jwt =
