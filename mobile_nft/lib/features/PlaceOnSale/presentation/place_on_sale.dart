@@ -104,16 +104,15 @@ class _PlaceOnSaleState extends State<PlaceOnSale> with Func {
                     int.parse(priceController.text),
                     daysToSeconds.inDays,
                     context);
+                    Navigator.pushNamed(context, "/home");
                 },
                 child: Text(
                   "Sell",
-                  style: TextStyle(fontFamily: buttonFont, )
-                )
-              )
-            )
-          ]
-        )
-      )
+                  style: TextStyle(fontFamily: buttonFont, fontSize: 24),
+                )))
+          ],
+        ),
+      ),
     );
   }
 }
