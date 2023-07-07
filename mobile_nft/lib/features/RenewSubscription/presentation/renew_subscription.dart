@@ -3,6 +3,7 @@ import 'package:mobile_nft/features/RenewSubscription/domain/renew_arguments.dar
 import 'package:mobile_nft/utils/color.dart';
 import 'package:mobile_nft/utils/fonts.dart';
 import 'package:mobile_nft/utils/func.dart';
+import 'package:select_card/select_card.dart';
 
 class RenewSubscription extends StatefulWidget {
   const RenewSubscription({super.key});
@@ -56,7 +57,18 @@ class _RenewSubscriptionState extends State<RenewSubscription> with Func {
                     const SizedBox(
                       height: 20,
                     ),
-                    
+                    SelectGroupCard(
+                      context,
+                      cardBackgroundColor: brandColor,
+                      cardSelectedColor: themeColor,
+                      titleTextColor: themeColor,
+                      titles: const ["1 week", "1 month", "3 months", "6 months", "1 year"],
+                      onTap: (title) {
+                        setState(() {
+                          setDuration = title;
+                        });
+                      }),
+                      
                   ]
                 )
               )
