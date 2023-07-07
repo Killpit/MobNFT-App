@@ -81,7 +81,28 @@ class _PlaceOnSaleState extends State<PlaceOnSale> with Func {
                 );
               }).toList(),
             ),
-            
+            Container(
+              margin: const EdgeInsets.all(40),
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: () {
+                  Duration daysToSeconds = Duration(
+                    days: (dropdownValue == "1 week")
+                    ? 7
+                    : (dropdownValue == "1 month")
+                    ?28
+                    : (dropdownValue == "3 months")
+                    ?90
+                    : (dropdownValue == "6 months")
+                    ?180
+                    :365
+                  );
+
+                  
+                }
+              )
+            )
           ]
         )
       )
