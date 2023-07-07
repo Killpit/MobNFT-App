@@ -68,13 +68,49 @@ class _RenewSubscriptionState extends State<RenewSubscription> with Func {
                           setDuration = title;
                         });
                       }),
-                      
-                  ]
-                )
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        setDuration,
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: headlineFont,
+                          color: themeColor),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 40, right: 40, top: 10),
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Duration daysToSeconds = Duration(
+                              days: (setDuration == "1 week")
+                              ? 7
+                              : (setDuration == "1 month")
+                              ?28
+                              : (setDuration == "3 months")
+                              ?90
+                              : (setDuration == "6 months")
+                              ?180
+                              :365
+                            );
+
+                            renewSubscription(
+                              args.tokenId, daysToSeconds.inDays, context);
+                          }, child: Text(
+                            "Renew",
+                            style: TextStyle(fontFamily: buttonFont, fontSize: 24),
+                          ),
+                        ))
+                  ],
+                ),
               )
-          ]
-        )
-      )
+          ],
+        )),
     );
   }
 }
