@@ -99,8 +99,16 @@ class _PlaceOnSaleState extends State<PlaceOnSale> with Func {
                     :365
                   );
 
-                  
-                }
+                  sellSubscription(
+                    args.tokenId,
+                    int.parse(priceController.text),
+                    daysToSeconds.inDays,
+                    context);
+                },
+                child: Text(
+                  "Sell",
+                  style: TextStyle(fontFamily: buttonFont, )
+                )
               )
             )
           ]
