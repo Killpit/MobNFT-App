@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lorem/flutter_lorem.dart';
 import 'package:mobile_nft/utils/color.dart';
@@ -37,10 +38,16 @@ class _PublishArticleState extends State<PublishArticle> {
                     color: themeColor),
                 ),
               ),
-            ]
-          )
-        )
-      )
+              AnimatedTextKit(animatedTexts: [
+                TypewriterAnimatedText(lorem(paragraphs: 10, words: 200),
+                textStyle: TextStyle(fontFamily: bodyFont, fontSize: 16),
+                curve: Curves.ease)
+              ]),
+            ],
+          ),
+        ),
+      ),
+      
     );
   }
 }
