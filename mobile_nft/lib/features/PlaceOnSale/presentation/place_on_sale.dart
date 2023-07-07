@@ -59,6 +59,28 @@ class _PlaceOnSaleState extends State<PlaceOnSale> with Func {
                   fontSize: 16),
               ),
             ),
+            DropdownButton<String>(
+              isExpanded: true,
+              value: dropdownValue,
+              icon: const Icon(Icons.arrow_downward),
+              elevation: 16,
+              style: const TextStyle(color: darkColor),
+              underline: Container(
+                height: 2,
+                color: brandColor,
+              ),
+              onChanged: (String? value) {
+                setState(() {
+                  dropdownValue = value!;
+                });
+              },
+              items: list.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
             
           ]
         )
