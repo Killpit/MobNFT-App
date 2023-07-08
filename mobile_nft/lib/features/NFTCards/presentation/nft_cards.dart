@@ -26,7 +26,7 @@ class _NftCardState extends State<NftCard> {
         (widget.source == Source.home)
         ? Navigator.pushNamed(context, Subscribe.routeName,
         arguments: SubscribeArguments(widget.nft))
-        : (status.profileStatus)
+        : (status.ProfileStatus)
         ? Navigator.pushNamed(context, Magazine.routeName,
         arguments:
         MagazineArguments(widget.nft[0].toInt(), widget.source))

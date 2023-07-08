@@ -2,7 +2,10 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:empty_widget/empty_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_nft/features/CreateNFTs/presentation/create_nft.dart';
+import 'package:mobile_nft/features/NFTCards/presentation/nft_cards.dart';
 import 'package:mobile_nft/features/Profiles/application/profile_provider.dart';
+import 'package:mobile_nft/features/Profiles/presentation/profile.dart';
 import 'package:mobile_nft/features/contracts/application/nft_provider.dart';
 import 'package:mobile_nft/features/home/presentation/custom_search.dart';
 import 'package:mobile_nft/utils/color.dart';
@@ -106,7 +109,7 @@ class _HomeState extends State<Home> {
                   ),
                 ))
           : (currentIndex == 1)
-              ? const CreateNft()
+              ? const CreateNFT()
               : const Profile(),
       bottomNavigationBar: BottomNavyBar(
         selectedIndex: currentIndex,

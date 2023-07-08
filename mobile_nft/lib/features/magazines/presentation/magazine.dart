@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobile_nft/features/PlaceOnSale/domain/place_on_sale_arguments.dart';
+import 'package:mobile_nft/features/PlaceOnSale/presentation/place_on_sale.dart';
+import 'package:mobile_nft/features/RenewSubscription/domain/renew_arguments.dart';
+import 'package:mobile_nft/features/RenewSubscription/presentation/renew_subscription.dart';
 import 'package:mobile_nft/features/contracts/application/nft_provider.dart';
 import 'package:mobile_nft/features/magazines/domain/magazine_arguments.dart';
 import 'package:mobile_nft/utils/color.dart';
